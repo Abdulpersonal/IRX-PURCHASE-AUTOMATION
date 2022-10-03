@@ -21,6 +21,9 @@ public void purchase()  throws IOException, InterruptedException {
 		WebDriver driver = setup();
 		Thread.sleep(2000);
 		
+       Thread.sleep(2000);
+		
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		driver.findElement(By.xpath("//span[contains(text(),'Purchase')]")).click();
 		driver.findElement(By.xpath("//a[contains(text(),'Purchase Order')]")).click();
 		Thread.sleep(2000);

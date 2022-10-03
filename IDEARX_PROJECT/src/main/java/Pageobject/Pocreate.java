@@ -51,7 +51,7 @@ public class Pocreate {
 		action.doubleClick(driver.findElement(By.xpath("//div[contains(@class,'x-grid3-row')]["+i+"]//div[@class='x-grid3-cell-inner x-grid3-col-ItemName']"))).perform();
 		driver.findElement(By.xpath("//input[contains(@id,'ItemNameEditor')]")).sendKeys(itemname);
 		Thread.sleep(2000);
-		WebElement itemlist=driver.findElement(By.xpath("(//div[contains(@id,'NameListItem'])"));
+		WebElement itemlist=driver.findElement(By.xpath("//div[contains(@id,'NameListItem')]"));
 		Thread.sleep(2000);
 		itemlist.click();
 	
