@@ -1,11 +1,13 @@
 package Com.Test;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import Pageobject.Duplicatedatabase;
@@ -19,11 +21,9 @@ public class Test_VendorPOCreate extends BROWSERSTARTUP{
 public void purchase()  throws IOException, InterruptedException {
 		
 		WebDriver driver = setup();
-		Thread.sleep(2000);
 		
-       Thread.sleep(2000);
 		
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.findElement(By.xpath("//span[contains(text(),'Purchase')]")).click();
 		driver.findElement(By.xpath("//a[contains(text(),'Purchase Order')]")).click();
 		Thread.sleep(2000);

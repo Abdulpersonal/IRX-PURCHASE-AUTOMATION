@@ -3,6 +3,8 @@ package Pageobject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -10,9 +12,12 @@ public class BROWSERSTARTUP {
 	
 	public WebDriver setup() {
 		
+		
+		//ChromeOptions opt = new ChromeOptions();
+		//opt.addArguments("--headless");
 		WebDriverManager.chromedriver().setup();
-		WebDriver  driver=new ChromeDriver();
-		driver.get("http://3.81.197.170:8081/");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://3.81.197.170:5081/");
 		driver.manage().window().maximize();
 		driver.findElement(By.id("j_username")).sendKeys("ideamed");
 		driver.findElement(By.id("j_password")).sendKeys("ideas2it");

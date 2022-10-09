@@ -129,16 +129,24 @@
                   <a name="purchase">
                   </a> <!-- purchase -->
                   <span class="method-name">purchase</span>
-                  <div class="stack-trace">org.openqa.selenium.InvalidSelectorException: invalid selector: Unable to locate an element with the xpath expression (//div[contains(@id,&apos;NameListItem&apos;]) because of the following error:
-SyntaxError: Failed to execute &apos;evaluate&apos; on &apos;Document&apos;: The string &apos;(//div[contains(@id,&apos;NameListItem&apos;])&apos; is not a valid XPath expression.
-  (Session info: chrome=105.0.5195.127)
-For documentation on this error, please visit: https://selenium.dev/exceptions/#invalid_selector_exception
+                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.id: PO_GRIDItem NameListItem (tried for 10 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:87)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231)
+	at Pageobject.Pocreate.Select_itemname(Pocreate.java:68)
+	at Pageobject.Duplicatedatabase.Select_purchase(Duplicatedatabase.java:185)
+	at Pageobject.Duplicatedatabase.Backenddata(Duplicatedatabase.java:144)
+	at Pageobject.Pocreate.Create_PO_items(Pocreate.java:44)
+	at Com.Test.Test_VendorPOCreate.purchase(Test_VendorPOCreate.java:31)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=106.0.5249.91)
 Build info: version: &apos;4.4.0&apos;, revision: &apos;e5c75ed026a&apos;
-System info: host: &apos;DESKTOP-78LMM9H&apos;, ip: &apos;192.168.22.40&apos;, os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.4.1&apos;
+System info: host: &apos;DESKTOP-78LMM9H&apos;, ip: &apos;192.168.1.7&apos;, os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.4.1&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [6c08756c1b661cd4e20028a175ad9384, findElement {using=xpath, value=(//div[contains(@id,&apos;NameListItem&apos;])}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 105.0.5195.127, chrome: {chromedriverVersion: 105.0.5195.52 (412c95e51883..., userDataDir: C:\Users\Admin\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:51798}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:51798/devtoo..., se:cdpVersion: 105.0.5195.127, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 6c08756c1b661cd4e20028a175ad9384
+Command: [10b121ab5508fe8fb48363855c2ab1d3, findElement {using=id, value=PO_GRIDItem NameListItem}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.91, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: C:\Users\Admin\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:59542}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:59542/devtoo..., se:cdpVersion: 106.0.5249.91, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 10b121ab5508fe8fb48363855c2ab1d3
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
@@ -150,13 +158,13 @@ Session ID: 6c08756c1b661cd4e20028a175ad9384
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:365)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:357)
-	at Pageobject.Pocreate.Select_itemname(Pocreate.java:54)
-	at Pageobject.Duplicatedatabase.Select_purchase(Duplicatedatabase.java:151)
-	at Pageobject.Duplicatedatabase.Backenddata(Duplicatedatabase.java:112)
-	at Pageobject.Pocreate.Create_PO_items(Pocreate.java:37)
-	at Com.Test.Test_VendorPOCreate.purchase(Test_VendorPOCreate.java:31)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-... Removed 36 stack frames
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:197)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:193)
+	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:631)
+	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:628)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:208)
+	... 37 more
+... Removed 35 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -218,12 +226,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'purchase')
 data.setCell(0, 2, 'Com.Test.Test_VendorPOCreate')
-data.setCell(0, 3, 48165);
+data.setCell(0, 3, 112546);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 48 seconds</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
