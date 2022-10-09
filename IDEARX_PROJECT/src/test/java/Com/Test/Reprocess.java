@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 
 import Pageobject.BROWSERSTARTUP;
 import Pageobject.Duplicatedatabase;
@@ -25,6 +26,7 @@ import Pageobject.Pocreate;
 
 public class Reprocess extends BROWSERSTARTUP{
 	
+	@Test
 	public void poreprocess() throws IOException, SQLException, InterruptedException
 	{
 		

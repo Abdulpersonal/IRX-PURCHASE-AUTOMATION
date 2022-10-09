@@ -19,7 +19,7 @@
     <version>2.22.2</version>
     <configuration>
     <suiteXmlFiles>
-    <suiteXmlFile>testng.xml</suiteXmlFile>
+    <suiteXmlFile>${testngFile}</suiteXmlFile>
     </suiteXmlFiles>
     </configuration>
 </plugin>
