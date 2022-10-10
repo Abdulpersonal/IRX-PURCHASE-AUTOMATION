@@ -213,7 +213,7 @@ public class Duplicatedatabase  {
 				 System.out.println("aaaaa" +i);
 				 
 				 //driver.navigate().refresh();
-				 //driver.findElement(By.xpath("//button[contains(text(),'Save')]")).click();
+				 driver.findElement(By.xpath("//button[contains(text(),'Save')]")).click();
 				
 				 Utility.ExcelWrite set=new ExcelWrite();
 				 set.success_po(driver, po);
