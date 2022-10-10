@@ -91,7 +91,7 @@ public class Pocreate {
 		}
 		
 		catch(Exception e) {
-			System.out.println("single item");
+			System.out.println("single po line entry ");
 			
 		}
 	
@@ -110,8 +110,8 @@ public class Pocreate {
 			set.write(driver, po,status,itemname,d);
 			driver.findElement(By.id("PO_GRIDItemNameEditor")).clear();
 			
-			System.out.println(po+"==Failed PO and i value is "+i);
-			System.out.println(po+ "Purchase not get integrated with database");
+			System.out.println(po+"==Failed");
+			System.out.println(po+ "Purchase order not  integrated");
 			
 		}
 		

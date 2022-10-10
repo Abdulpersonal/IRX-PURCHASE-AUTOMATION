@@ -122,7 +122,7 @@ public class Duplicatedatabase  {
 			catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-			//return Name;
+			
 
 		
 		return driver;
@@ -154,29 +154,25 @@ public class Duplicatedatabase  {
 				
 		
 		ResultSet working=st1.executeQuery(detail);
+		
 		while(working.next()) {
 			System.out.println(po+" i value is set before if as == "+i);
 
-			if(i==lineitem) {
-				System.out.println(" Loop ended Next po");
-				break;
-			}
+				if(i==lineitem) {
+					System.out.println(" Loop ended Next po");
+					break;
+				}
 		i=i+1;
 		System.out.println("--------"+i);
 		String itemname=working.getString("itemName");
 		String quantity=working.getString("NOS");
 		String amount=working.getString("ITEMAMOUNT");
-		
-		
-		
-		//list.add(itemname);
-		//list.add(quantity);
 
-		
-		 System.out.println("Po Number= ("+po+") and  itemname=  "+itemname+"");
+
+		 System.out.println("Po Number= ("+po+") and  Idearx itemname=  "+itemname+"");
 		 
 		 i=Select_purchase(driver, itemname,quantity,i,lineitem,po); 
-		// list.clear();
+		
 
 	}
 		
@@ -195,29 +191,27 @@ public class Duplicatedatabase  {
 			
 			String item="DOLO 650 MG TAB";
 			String item1="rrr";
-			//Scanner inputText = new Scanner(System.in);
-			//String search= inputText.next();
 			Pageobject.Pocreate dep=new Pocreate();
 			i=dep.Select_itemname(driver, itemname, i, quantity,po,count);
 		
 		  //Loop until final row in array
 			
 			 if(i!=count) {
-				 System.out.println("eef" +i);
+				 //System.out.println("eef" +i);
 				
 			 driver.findElement(discounttextclick).sendKeys(Keys.ENTER);
 				
 		
 	}
 			 else {
-				 System.out.println("aaaaa" +i);
+				// System.out.println("aaaaa" +i);
 				 
 				 //driver.navigate().refresh();
 				 driver.findElement(By.xpath("//button[contains(text(),'Save')]")).click();
 				
 				 Utility.ExcelWrite set=new ExcelWrite();
 				 set.success_po(driver, po);
-				 
+				 Thread.sleep(1000);
 				 driver.navigate().refresh();
 				 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 				 WebDriverWait wait= new WebDriverWait(driver,Duration.ofSeconds(10));
@@ -230,7 +224,7 @@ public class Duplicatedatabase  {
 			     dep.Select_dept(driver);					
 			 }
 			 
-	System.out.println("Line item created");
+	System.out.println("PO Line item created");
 		return i;
 	}
 	
