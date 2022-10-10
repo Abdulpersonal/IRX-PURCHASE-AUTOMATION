@@ -77,7 +77,7 @@ public class Duplicatedatabase  {
 				XSSFSheet prefixsheet = workbook1.getSheet("Sheet1");
 				String ponumber=prefixsheet.getRow(1).getCell(0).getStringCellValue();
 				
-                System.out.println(ponumber);
+                System.out.println("Starting po number="+ponumber);
 				st=conn.createStatement();
 				String sql="SELECT p.id,COUNT(pd.purchaseorder)AS COUNT \r\n"
 						+ "FROM  `irx_purchase_order` AS p\r\n"
@@ -198,7 +198,7 @@ public class Duplicatedatabase  {
 			//Scanner inputText = new Scanner(System.in);
 			//String search= inputText.next();
 			Pageobject.Pocreate dep=new Pocreate();
-			i=dep.Select_itemname(driver, item, i, quantity,po,count);
+			i=dep.Select_itemname(driver, itemname, i, quantity,po,count);
 		
 		  //Loop until final row in array
 			
