@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -25,12 +27,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Utility.ExcelWrite;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 
-public class Duplicatedatabase {
+public class Duplicatedatabase  {
 	
 	public static int i;
+	public static int k;
 	public static Connection conn1;
 	public static Statement st1;
 	public static ResultSet working;
@@ -56,6 +60,9 @@ public class Duplicatedatabase {
 			
 			Connection conn=null;
 			Statement st=null;
+			
+			Pageobject.Pocreate f=new Pocreate();
+			
 
 			try {
 				
@@ -64,7 +71,13 @@ public class Duplicatedatabase {
 					System.out.println("Driver connection completed");
 
 				conn=DriverManager.getConnection(URL,UN,p);
-
+				
+				String path=System.getProperty("user.dir");
+				XSSFWorkbook workbook1=new XSSFWorkbook(path+"\\Excel\\Success_po.xlsx");
+				XSSFSheet prefixsheet = workbook1.getSheet("Sheet1");
+				String ponumber=prefixsheet.getRow(1).getCell(0).getStringCellValue();
+				
+                System.out.println(ponumber);
 				st=conn.createStatement();
 				String sql="SELECT p.id,COUNT(pd.purchaseorder)AS COUNT \r\n"
 						+ "FROM  `irx_purchase_order` AS p\r\n"
@@ -73,8 +86,9 @@ public class Duplicatedatabase {
 						+ "p.id=pd.purchaseorder\r\n"
 						+ "AND  p.createdtime between '2022-10-07 00:00:00' AND '2022-10-07 23:00:00'\r\n"
 						//+ ">=CURDATE()\r\n"
-						+ "GROUP BY pd.purchaseorder\r\n"
-						+ "ORDER BY p.id DESC";
+						+ "AND p.id > "+ponumber+"\r\n"
+						+"GROUP BY pd.purchaseorder\r\n"
+						+ "ORDER BY p.id";
 				
 				
 				ResultSet executequery=st.executeQuery(sql);
@@ -87,8 +101,10 @@ public class Duplicatedatabase {
 					System.out.println(po+"="+lineitem);
 					i=0;				
 					podetailquery(driver, po,i,lineitem);
-
+					 
 				}	
+				
+				
 				executequery.close();
 				st.close();
 				conn.close();
@@ -122,6 +138,8 @@ public class Duplicatedatabase {
 		conn1=DriverManager.getConnection(URL,UN,p);
 
 		st1=conn1.createStatement();
+		
+		
 
 		String detail="SELECT\r\n"
 				+ "IFNULL(pd.`BUYERITEMNAME`,pd.`SUPPLIERITEMNAME`) AS itemName,\r\n"
@@ -139,11 +157,17 @@ public class Duplicatedatabase {
 		while(working.next()) {
 			System.out.println(po+" i value is set before if as == "+i);
 
+			if(i==lineitem) {
+				System.out.println(" Loop ended Next po");
+				break;
+			}
 		i=i+1;
 		System.out.println("--------"+i);
 		String itemname=working.getString("itemName");
 		String quantity=working.getString("NOS");
 		String amount=working.getString("ITEMAMOUNT");
+		
+		
 		
 		//list.add(itemname);
 		//list.add(quantity);
@@ -151,7 +175,7 @@ public class Duplicatedatabase {
 		
 		 System.out.println("Po Number= ("+po+") and  itemname=  "+itemname+"");
 		 
-		 Select_purchase(driver, itemname,quantity,i,lineitem,po); 
+		 i=Select_purchase(driver, itemname,quantity,i,lineitem,po); 
 		// list.clear();
 
 	}
@@ -167,18 +191,23 @@ public class Duplicatedatabase {
 	}
 	
 	
-	public WebDriver Select_purchase(WebDriver driver,String itemname,String quantity,int i,int count,String po) throws InterruptedException, SQLException, IOException {
+	public int Select_purchase(WebDriver driver,String itemname,String quantity,int i,int count,String po) throws InterruptedException, SQLException, IOException {
 			
 			String item="DOLO 650 MG TAB";
+			String item1="rrr";
 			//Scanner inputText = new Scanner(System.in);
 			//String search= inputText.next();
 			Pageobject.Pocreate dep=new Pocreate();
-			dep.Select_itemname(driver, item, i, quantity,po,count);
+			i=dep.Select_itemname(driver, item, i, quantity,po,count);
 		
 		  //Loop until final row in array
+			
 			 if(i!=count) {
 				 System.out.println("eef" +i);
+				
 			 driver.findElement(discounttextclick).sendKeys(Keys.ENTER);
+				
+		
 	}
 			 else {
 				 System.out.println("aaaaa" +i);
@@ -186,6 +215,8 @@ public class Duplicatedatabase {
 				 //driver.navigate().refresh();
 				 //driver.findElement(By.xpath("//button[contains(text(),'Save')]")).click();
 				
+				 Utility.ExcelWrite set=new ExcelWrite();
+				 set.success_po(driver, po);
 				 
 				 driver.navigate().refresh();
 				 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -200,7 +231,7 @@ public class Duplicatedatabase {
 			 }
 			 
 	System.out.println("Line item created");
-		return driver;
+		return i;
 	}
 	
 	

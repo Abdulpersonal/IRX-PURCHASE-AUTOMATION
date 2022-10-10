@@ -46,6 +46,42 @@ public class ExcelWrite {
 		fos.close();
 		return driver;
 	}
+	
+	
+public WebDriver success_po(WebDriver driver,String po) throws IOException {
+		
+		String path=System.getProperty("user.dir");
+		FileInputStream fis = new FileInputStream(path+"\\Excel\\Success_po.xlsx");
+
+		XSSFWorkbook workbook1=new XSSFWorkbook(fis);
+		XSSFSheet prefixsheet = workbook1.getSheet("Sheet1");
+		
+		//String s=prefixsheet.getRow(0).getCell(0).getStringCellValue();
+		int rowcount=prefixsheet.getLastRowNum();
+		 XSSFRow row = prefixsheet.createRow(1);
+		 int colcount=row.getLastCellNum();
+		
+		 XSSFCell cell = row.createCell(0);
+			cell.setCellValue(po);
+	
 			
+		FileOutputStream fos = new FileOutputStream(path+"\\Excel\\Success_po.xlsx");
+
+		workbook1.write(fos);
+		fos.close();
+		return driver;
+	}
+	
+	
+public WebDriver getpo(WebDriver driver) throws IOException {
+	
+	String path=System.getProperty("user.dir");
+	XSSFWorkbook workbook1=new XSSFWorkbook(path+"\\Excel\\Success_po.xlsx");
+	XSSFSheet prefixsheet = workbook1.getSheet("Sheet1");
+	String ponumber=prefixsheet.getRow(1).getCell(0).getStringCellValue();
+	return driver;
+	
+	
+}
 			
 }

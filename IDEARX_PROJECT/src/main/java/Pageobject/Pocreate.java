@@ -19,6 +19,8 @@ import Utility.ExcelWrite;
 
 public class Pocreate {
 
+
+	
 	By quantitytextbox = By.cssSelector("input[id*=ext-comp-]");  //Quantity text box
 	//By discounttexthover = By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-Discount']"); //Discount double click
 	By discounttextclick= By.xpath("//div[@class='x-layer x-editor x-small-editor x-grid-editor'][3]/input"); //Discount text box click
@@ -52,7 +54,7 @@ public class Pocreate {
 	
 	
 	
-	public WebDriver Select_itemname(WebDriver driver,String itemname,int i,String quantity,String po,int count) throws InterruptedException, IOException {
+	public int Select_itemname(WebDriver driver,String itemname,int i,String quantity,String po,int count) throws InterruptedException, IOException {
 		
 
 		Thread.sleep(2000);
@@ -71,6 +73,7 @@ public class Pocreate {
 		
 		if(itemname.equals(d)) {
 		driver.findElement(By.xpath("//div[contains(@id,'NameListItem')]")).click();
+		
 		
 		
 		try {		
@@ -101,20 +104,21 @@ public class Pocreate {
 	}
 		
 		else {
+			i=count;
 			String status="fail";
 			Utility.ExcelWrite set=new ExcelWrite();
 			set.write(driver, po,status,itemname,d);
+			driver.findElement(By.id("PO_GRIDItemNameEditor")).clear();
 			
 			System.out.println(po+"==Failed PO and i value is "+i);
 			System.out.println(po+ "Purchase not get integrated with database");
-		
 			
 		}
 		
 		
 		
 		
-		return driver;
+		return i;
 	}
 	
 	

@@ -52,14 +52,14 @@ public class Reprocess extends BROWSERSTARTUP{
 		purchase.Select_dept(driver);
 		
 		for(int j=0;j<rowcount;j++) {
-			String processstate=prefixsheet.getRow(j+1).getCell(3).getStringCellValue();
+			String processstate=prefixsheet.getRow(j+1).getCell(1).getStringCellValue();
 			if(processstate.equals("fail")) {
-				
-			String poid=prefixsheet.getRow(j+1).getCell(1).getStringCellValue();
+			String poid=prefixsheet.getRow(j+1).getCell(0).getStringCellValue();
+			int s=2;
 			Pageobject.Duplicatedatabase detail=new Duplicatedatabase();
-			detail.podetailquery(driver, poid, colcount, j);
-			XSSFRow row1 = prefixsheet.getRow(j);
-			XSSFCell cell1 = row1.createCell(3);
+			detail.podetailquery(driver, poid, j, s);
+			XSSFRow row1 = prefixsheet.getRow(j+1);
+			XSSFCell cell1 = row1.createCell(1);
 			cell1.setCellValue("Success");
 			}
 		}
