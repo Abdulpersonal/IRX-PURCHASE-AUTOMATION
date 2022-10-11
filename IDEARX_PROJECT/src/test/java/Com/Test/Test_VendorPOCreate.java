@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import Pageobject.Duplicatedatabase;
 import Pageobject.Pocreate;
+import Utility.Commonmethods;
 import Pageobject.BROWSERSTARTUP;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -24,11 +25,12 @@ public void purchase()  throws IOException, InterruptedException {
 		
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.findElement(By.xpath("//span[contains(text(),'Purchase')]")).click();
-		driver.findElement(By.xpath("//a[contains(text(),'Purchase Order')]")).click();
+		Commonmethods com=new Commonmethods();
+		com.clickparentMenu(driver, "Purchase");
+		com.clickchildMenu(driver, "Purchase Order");
 		Thread.sleep(2000);
 		Pageobject.Pocreate purchase=new Pocreate();
-		purchase.Create_PO_items(driver);	
+		purchase.Create_PO_items(driver);
 		
 	}
 }

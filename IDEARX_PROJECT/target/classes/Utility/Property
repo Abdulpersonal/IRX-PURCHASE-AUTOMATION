@@ -1,0 +1,6 @@
+url=http://3.81.197.170:5081/
+username=ideamed
+password=ideas2it
+idearx_db_url=jdbc:mysql://139.59.68.85:3306/irx_merge_sep_07
+idearx_db_username=IdearxQARead
+idearx_db_password=IdearxRead@123

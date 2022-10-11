@@ -1,0 +1,6 @@
+Pageobject\BROWSERSTARTUP.class
+Pageobject\Duplicatedatabase.class
+Utility\Commonmethods.class
+Pageobject\Pocreate.class
+Utility\ExcelWrite.class
+Utility\Propertyreader.class

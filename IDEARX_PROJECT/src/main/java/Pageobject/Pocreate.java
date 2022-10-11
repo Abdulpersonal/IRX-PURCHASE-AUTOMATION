@@ -14,13 +14,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Utility.Commonmethods;
 import Utility.ExcelWrite;
 
 
-public class Pocreate {
+public class Pocreate 
+{
 
-
-	
 	By quantitytextbox = By.cssSelector("input[id*=ext-comp-]");  //Quantity text box
 	//By discounttexthover = By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-Discount']"); //Discount double click
 	By discounttextclick= By.xpath("//div[@class='x-layer x-editor x-small-editor x-grid-editor'][3]/input"); //Discount text box click
@@ -33,108 +33,105 @@ public class Pocreate {
 	By Deptselect=By.id("deptId");
 	By dept=By.xpath("//input[contains(@id,'deptId')]/parent::div/img");
 	By supplier=By.xpath("//input[contains(@id,'goodsSupplier')]/parent::div/img");
-
+	By poitemtextbox=By.id("PO_GRIDItemNameEditor");
+	By itemselectvalue=By.xpath("//div[contains(@id,'NameListItem')]");
+	By duplicateitem=By.xpath("//span[contains(text(),'Item already Exists')]");
+	By alertbox=By.xpath("//button[contains(text(),'Yes')]");
+	By sup=By.id("goodsSupplier");
 	
 	
+	
+	Commonmethods com=new Commonmethods();
 	
 	
 	//Create purchase order from po screen 
-	public WebDriver Create_PO_items(WebDriver driver) throws InterruptedException, IOException {
-		
+	public WebDriver Create_PO_items(WebDriver driver) throws InterruptedException, IOException 
+	{
 		Select_dept(driver);
 		Pageobject.Duplicatedatabase vs=new Duplicatedatabase();
 		vs.Backenddata(driver);
-	
+		driver.close();
 		return driver;
-		//String Po_NUMBER=driver.findElement(Purchase_S_No).getText();   //Get PO No
-		//System.out.println(Po_NUMBER);
-	
 		
+		
+		//String Po_NUMBER=driver.findElement(Purchase_S_No).getText();   //Get PO No
+		//System.out.println(Po_NUMBER);	
 	}
 	
 	
-	
-	public int Select_itemname(WebDriver driver,String itemname,int i,String quantity,String po,int count) throws InterruptedException, IOException {
+	//itemmapping
+	public int Select_itemname(WebDriver driver,String itemname,int i,String quantity,String po,int count) throws InterruptedException, IOException 
+	{
 		
-
 		Thread.sleep(2000);
 		Actions action = new Actions(driver);
 		action.doubleClick(driver.findElement(By.xpath("//div[contains(@class,'x-grid3-row')]["+i+"]//div[@class='x-grid3-cell-inner x-grid3-col-ItemName']"))).perform();
-
+		com.sendkeys(driver, poitemtextbox, itemname);
+		Thread.sleep(7000);
+		com.Call_Explicitwait(driver, itemselectvalue);
+		String d=driver.findElement(itemselectvalue).getText();
+		System.out.println("HMS ITEMNAME = "+d);
 		
-		driver.findElement(By.id("PO_GRIDItemNameEditor")).sendKeys(itemname);
-		Thread.sleep(10000);
-		
-		WebDriverWait wait= new WebDriverWait(driver,Duration.ofSeconds(10));
-		wait.until(ExpectedConditions . elementToBeClickable (By.id("PO_GRIDItem NameListItem")));
-		String d=driver.findElement(By.xpath("//div[contains(@id,'NameListItem')]")).getText();
-		System.out.println(d);
-		
-		
-		if(itemname.equals(d)) {
-		driver.findElement(By.xpath("//div[contains(@id,'NameListItem')]")).click();
-		
-		
-		
-		try {		
-	WebElement duplicate_item=driver.findElement(By.xpath("//span[contains(text(),'Item already Exists')]"));
-		System.out.println(duplicate_item.getText());
-		String v=duplicate_item.getText();
-		String B="Item already Exists";
-		
-	if(v.equals(B)) {
-		System.out.println("Inside if loop");
-		WebDriverWait wait2= new WebDriverWait(driver,Duration.ofSeconds(10));
-		wait2.until(ExpectedConditions . elementToBeClickable (By.xpath("//button[contains(text(),'Yes')]")));
-			driver.findElement(By.xpath("//button[contains(text(),'Yes')]")).click();
-		}
-		}
-		
-		catch(Exception e) {
-			System.out.println("single po line entry ");
-			
-		}
-	
-		
-		Thread.sleep(2000);
-		driver.findElement(quantitytextbox).sendKeys(quantity);
-		 Actions action2 = new Actions(driver);
+		if(itemname.equals(d)) 
+		{
+			com.click(driver, itemselectvalue);
+			Thread.sleep(1000);
+			com.sendkeys(driver, quantitytextbox, quantity);
+			Actions action2 = new Actions(driver);
 			action2.doubleClick(driver.findElement(By.xpath("//div[contains(@class,'x-grid3-row')]["+i+"]//div[@class='x-grid3-cell-inner x-grid3-col-Discount']"))).perform();
-			Thread.sleep(2000);
-	}
-		
-		else {
+			Thread.sleep(1000);
+		}
+		else 
+		{
 			i=count;
 			String status="fail";
 			Utility.ExcelWrite set=new ExcelWrite();
 			set.write(driver, po,status,itemname,d);
-			driver.findElement(By.id("PO_GRIDItemNameEditor")).clear();
-			
-			System.out.println(po+"==Failed");
-			System.out.println(po+ "Purchase order not  integrated");
-			
+			System.out.println(po+" ==Failed");
+			System.out.println(po+ " = Purchase order not integrated");		
 		}
 		
-		
-		
-		
-		return i;
+	return i;
 	}
 	
-	
-	public WebDriver Select_dept(WebDriver driver) throws InterruptedException {
-	
-	WebDriverWait wait1= new WebDriverWait(driver,Duration.ofSeconds(5));
-	wait1.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("deptId"))));
-	driver.findElement(Deptselect).sendKeys("PHARMACY STORES");
-	Thread.sleep(6000);
-	driver.findElement(Deptselect).click();
-	WebElement drop1=driver.findElement(supplier);
-	drop1.click();
-	WebElement consultant_click=driver.findElement(By.id("goodsSupplier"));
-	Thread.sleep(2000);
-	consultant_click.sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
-	return driver;
+//department and supplier select
+	public WebDriver Select_dept(WebDriver driver) throws InterruptedException 
+	{
+		com.Call_Explicitwait(driver, Deptselect);
+		com.sendkeys(driver, Deptselect, "PHARMACY STORES");
+		Thread.sleep(6000);
+		com.click(driver, Deptselect);
+		com.click(driver, supplier);
+		WebElement consultant_click=driver.findElement(sup);
+		Thread.sleep(2000);
+		consultant_click.sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+		return driver;
 	
 	}
 }
+
+
+
+
+
+
+
+
+//try 
+//{		
+//	WebElement duplicate_item=driver.findElement(duplicateitem);
+//	System.out.println(duplicate_item.getText());
+//	String v=duplicate_item.getText();
+//	String B="Item already Exists";
+//
+//	if(v.equals(B)) 
+//	{
+//		System.out.println("Inside if loop");
+//		com.Call_Explicitwait(driver, alertbox);
+//		driver.findElement(alertbox).click();
+//	}
+//}
+//catch(Exception e) 
+//{
+//	System.out.println(e);		
+//}

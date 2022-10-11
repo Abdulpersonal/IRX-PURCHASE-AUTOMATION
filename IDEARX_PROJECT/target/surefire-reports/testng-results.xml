@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-10-11T12:14:51 IST" name="Suite" finished-at="2022-10-11T12:17:03 IST" duration-ms="132055">
+    <groups>
+    </groups>
+    <test started-at="2022-10-11T12:14:51 IST" name="Test" finished-at="2022-10-11T12:17:03 IST" duration-ms="132055">
+      <class name="Com.Test.Test_VendorPOCreate">
+        <test-method signature="purchase()[pri:0, instance:Com.Test.Test_VendorPOCreate@2e4b8173]" started-at="2022-10-11T12:14:51 IST" name="purchase" finished-at="2022-10-11T12:17:03 IST" duration-ms="132026" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- purchase -->
+      </class> <!-- Com.Test.Test_VendorPOCreate -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
+</testng-results>

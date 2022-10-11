@@ -1,11 +1,17 @@
 package Pageobject;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Utility.Propertyreader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BROWSERSTARTUP {
@@ -15,14 +21,38 @@ public class BROWSERSTARTUP {
 		
 		//ChromeOptions opt = new ChromeOptions();
 		//opt.addArguments("--headless");
+		
+		
+		
+		
+		Properties prop = new Properties();
+		FileInputStream file;
+		try 
+		{
+			file = new FileInputStream("C:\\Users\\Admin\\git\\IRX-PURCHASE-AUTOMATION\\IDEARX_PROJECT\\src\\main\\java\\Utility\\Property");
+			prop.load(file);
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		WebDriverManager.chromedriver().setup();
+		//Properties prop = Propertyreader.loadSQLProperty();
+		//String url = prop.getProperty("url");
 		WebDriver driver = new ChromeDriver();
-		driver.get("http://3.81.197.170:5081/");
+		String url=prop.getProperty("url");
+		driver.get(url);
 		driver.manage().window().maximize();
-		driver.findElement(By.id("j_username")).sendKeys("ideamed");
-		driver.findElement(By.id("j_password")).sendKeys("ideas2it");
+		String username=prop.getProperty("username");
+		String password=prop.getProperty("password");
+		driver.findElement(By.id("j_username")).sendKeys(username);
+		driver.findElement(By.id("j_password")).sendKeys(password);
 		driver.findElement(By.id("btnSubmit")).click();
 		return driver;
 	}
+		
+		
+	}
+	
 
-}
